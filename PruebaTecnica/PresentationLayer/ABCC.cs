@@ -94,10 +94,10 @@ namespace PruebaTecnica.PresentationLayer
 
                     //Habilitar Alta
                     btnAlta.Enabled = true;
+                    cbDepartamento.Enabled = true;
                     //inhabilitar botones no relevantes en caso de que no exista Sku
                     btnActualizar.Enabled = false;
-                    btnEliminar.Enabled = false;
-                    cbDepartamento.Enabled = true;
+                    btnEliminar.Enabled = false;                    
                     cbClase.Enabled = false;
                     cbFamilia.Enabled = false;
                     cbDescontinuado.Enabled = false;
@@ -179,7 +179,7 @@ namespace PruebaTecnica.PresentationLayer
             }
             else
             {
-                MessageBox.Show("Hubo un error durante la actualización del articulo", "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Se Cancelo la actualización", "Actualización cancelada", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
