@@ -79,6 +79,18 @@ namespace PruebaTecnica.PresentationLayer
                 }
                 else
                 {
+                    cbDepartamento.Enabled = true;
+                    cbClase.Enabled = false;
+                    cbFamilia.Enabled = false;
+                    btnActualizar.Enabled = true;
+                    btnEliminar.Enabled = true;
+                    tbArticulo.Enabled = true;
+                    tbMarca.Enabled = true;
+                    tbModelo.Enabled = true;
+                    tbStock.Enabled = true;
+                    tbCantidad.Enabled = true;
+
+
                     tbArticulo.Text = string.Empty;
                     tbArticulo.Text = string.Empty;
                     tbMarca.Text = string.Empty;
