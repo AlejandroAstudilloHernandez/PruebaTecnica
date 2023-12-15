@@ -130,6 +130,8 @@ namespace PruebaTecnica.PresentationLayer
             btnAlta.Enabled = false;
             //inhabilitar la alta
             btnAlta.Enabled = false;
+
+            MessageBox.Show("Articulo dado de Alta.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
