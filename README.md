@@ -7,8 +7,14 @@
 
 ## Configuración de la Base de Datos
 
-1. Ejecuta el script "Creacion de base de datos y tablas y SP.sql" para crear la base de datos y los procedimientos almacenados necesarios.
-2. Ejecuta el script "INSERTS iniciales (Departamentos, Clases, Familias).sql" para insertar datos iniciales en las tablas de Departamentos, Clases y Familias.
+1. La base de datos ya está disponible en un servidor para pruebas.
+
+### Configuración para Base de Datos Local (Opcional)
+
+Si prefieres utilizar una base de datos local, sigue estos pasos:
+
+2. Ejecuta el script "Creacion de base de datos y tablas y SP.sql" para crear la base de datos y los procedimientos almacenados necesarios.
+3. Ejecuta el script "INSERTS iniciales (Departamentos, Clases, Familias).sql" para insertar datos iniciales en las tablas de Departamentos, Clases y Familias.
 
 ## Configuración de la Cadena de Conexión
 
