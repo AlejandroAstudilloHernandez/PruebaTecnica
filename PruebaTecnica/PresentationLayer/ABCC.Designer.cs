@@ -159,13 +159,16 @@
             // tbSku
             // 
             tbSku.Location = new Point(110, 6);
+            tbSku.MaxLength = 6;
             tbSku.Name = "tbSku";
             tbSku.Size = new Size(100, 23);
             tbSku.TabIndex = 12;
+            tbSku.KeyPress += tbSku_KeyPress;
             // 
             // tbArticulo
             // 
             tbArticulo.Location = new Point(110, 45);
+            tbArticulo.MaxLength = 15;
             tbArticulo.Name = "tbArticulo";
             tbArticulo.Size = new Size(324, 23);
             tbArticulo.TabIndex = 13;
@@ -173,6 +176,7 @@
             // tbMarca
             // 
             tbMarca.Location = new Point(110, 83);
+            tbMarca.MaxLength = 15;
             tbMarca.Name = "tbMarca";
             tbMarca.Size = new Size(324, 23);
             tbMarca.TabIndex = 14;
@@ -180,6 +184,7 @@
             // tbModelo
             // 
             tbModelo.Location = new Point(110, 121);
+            tbModelo.MaxLength = 20;
             tbModelo.Name = "tbModelo";
             tbModelo.Size = new Size(324, 23);
             tbModelo.TabIndex = 15;
@@ -187,16 +192,20 @@
             // tbStock
             // 
             tbStock.Location = new Point(110, 281);
+            tbStock.MaxLength = 9;
             tbStock.Name = "tbStock";
             tbStock.Size = new Size(100, 23);
             tbStock.TabIndex = 16;
+            tbStock.KeyPress += tbStock_KeyPress;
             // 
             // tbCantidad
             // 
             tbCantidad.Location = new Point(307, 278);
+            tbCantidad.MaxLength = 9;
             tbCantidad.Name = "tbCantidad";
             tbCantidad.Size = new Size(100, 23);
             tbCantidad.TabIndex = 17;
+            tbCantidad.KeyPress += tbCantidad_KeyPress;
             // 
             // dtpFechaAlta
             // 
@@ -216,8 +225,10 @@
             // 
             // cbDepartamento
             // 
+            cbDepartamento.DropDownStyle = ComboBoxStyle.DropDownList;
             cbDepartamento.FormattingEnabled = true;
             cbDepartamento.Location = new Point(110, 157);
+            cbDepartamento.MaxLength = 1;
             cbDepartamento.Name = "cbDepartamento";
             cbDepartamento.Size = new Size(324, 23);
             cbDepartamento.TabIndex = 20;
@@ -225,8 +236,10 @@
             // 
             // cbClase
             // 
+            cbClase.DropDownStyle = ComboBoxStyle.DropDownList;
             cbClase.FormattingEnabled = true;
             cbClase.Location = new Point(110, 199);
+            cbClase.MaxLength = 1;
             cbClase.Name = "cbClase";
             cbClase.Size = new Size(324, 23);
             cbClase.TabIndex = 21;
@@ -234,8 +247,10 @@
             // 
             // cbFamilia
             // 
+            cbFamilia.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFamilia.FormattingEnabled = true;
             cbFamilia.Location = new Point(110, 238);
+            cbFamilia.MaxLength = 1;
             cbFamilia.Name = "cbFamilia";
             cbFamilia.Size = new Size(324, 23);
             cbFamilia.TabIndex = 22;

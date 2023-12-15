@@ -24,11 +24,11 @@ namespace PruebaTecnica.PresentationLayer
             btnEliminar.Enabled = false;
             cbDepartamento.Enabled = false;
             cbDescontinuado.Enabled = false;
-            tbArticulo.Enabled= false;
-            tbMarca.Enabled= false;
-            tbModelo.Enabled=false;
-            tbStock.Enabled=false;
-            tbCantidad.Enabled=false;
+            tbArticulo.Enabled = false;
+            tbMarca.Enabled = false;
+            tbModelo.Enabled = false;
+            tbStock.Enabled = false;
+            tbCantidad.Enabled = false;
             cbClase.Enabled = false;
             cbFamilia.Enabled = false;
             dtpFechaAlta.Enabled = false;
@@ -40,7 +40,7 @@ namespace PruebaTecnica.PresentationLayer
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if(tbSku.Text != null)
+            if (tbSku.Text != null)
             {
                 var sku = Convert.ToInt32(tbSku.Text);
                 Articulo articulo = new Articulo();
@@ -100,7 +100,7 @@ namespace PruebaTecnica.PresentationLayer
                     cbDescontinuado.Enabled = false;
                 }
             }
-            
+
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -269,7 +269,7 @@ namespace PruebaTecnica.PresentationLayer
                 tbCantidad.Text = string.Empty;
                 dtpFechaAlta.Text = string.Empty;
                 dtpFechaBaja.Text = string.Empty;
-                cbDescontinuado.Checked = false;                
+                cbDescontinuado.Checked = false;
 
                 // Puedes mostrar un mensaje indicando que la actualización fue exitosa
                 MessageBox.Show("La eliminación se realizó con éxito.", "Articulo Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -277,6 +277,36 @@ namespace PruebaTecnica.PresentationLayer
             else
             {
                 MessageBox.Show("Hubo un error durante la eliminación del articulo", "Error al eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void tbSku_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Verificar si la tecla presionada es un dígito o la tecla de retroceso
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                // Si no es un dígito o retroceso, suprime la tecla
+                e.Handled = true;
+            }
+        }
+
+        private void tbStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Verificar si la tecla presionada es un dígito o la tecla de retroceso
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                // Si no es un dígito o retroceso, suprime la tecla
+                e.Handled = true;
+            }
+        }
+
+        private void tbCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Verificar si la tecla presionada es un dígito o la tecla de retroceso
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                // Si no es un dígito o retroceso, suprime la tecla
+                e.Handled = true;
             }
         }
     }
