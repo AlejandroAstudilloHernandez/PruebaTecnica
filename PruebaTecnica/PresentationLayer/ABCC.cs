@@ -210,7 +210,7 @@ namespace PruebaTecnica.PresentationLayer
             }
             else
             {
-                MessageBox.Show("Hubo un error durante la eliminación del articulo", "Error al eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Se Cancelo la eliminación", "Eliminación cancelada", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         #endregion
