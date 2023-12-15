@@ -38,6 +38,9 @@ namespace PruebaTecnica.PresentationLayer
             CargarDepartamentos();
         }
 
+
+
+        #region Botones
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             if (tbSku.Text != null)
@@ -129,75 +132,6 @@ namespace PruebaTecnica.PresentationLayer
             btnAlta.Enabled = false;
         }
 
-        private void cbDepartamento_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int numeroDepartamento = Convert.ToInt32(cbDepartamento.SelectedItem);
-
-            // Cargar las clases basadas en el departamento seleccionado
-            CargarClases(numeroDepartamento);
-            cbClase.Enabled = true;
-        }
-
-        private void cbClase_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int numeroDepartamento = Convert.ToInt32(cbDepartamento.SelectedItem);
-            int numeroClase = Convert.ToInt32(cbClase.SelectedItem);
-
-            CargarFamilias(ObtenerNombreClase(numeroClase, numeroDepartamento));
-        }
-
-        private string ObtenerNombreClase(int numeroClase, int numeroDepartamento)
-        {
-            List<Clase> clases = new List<Clase>();
-            clases = _business.ObtenerClases(numeroDepartamento);
-            string nombreClase = "";
-            foreach (Clase clase in clases)
-            {
-                if (clase.NumeroClase == numeroClase)
-                {
-                    nombreClase = clase.NombreClase;
-                }
-            }
-            cbFamilia.Enabled = true;
-            return nombreClase;
-        }
-
-        private void CargarDepartamentos()
-        {
-            cbDepartamento.Items.Clear();
-
-            var departamentos = _business.ObtenerDepartamentos();
-
-            foreach (var departamento in departamentos)
-            {
-                cbDepartamento.Items.Add(departamento.NumeroDepartamento);
-            }
-        }
-
-        private void CargarClases(int numeroDepartamento)
-        {
-            cbClase.Items.Clear();
-
-            var clases = _business.ObtenerClases(numeroDepartamento);
-
-            foreach (var clase in clases)
-            {
-                cbClase.Items.Add(clase.NumeroClase);
-            }
-        }
-
-        private void CargarFamilias(string nombreClase)
-        {
-            cbFamilia.Items.Clear();
-
-            var familias = _business.ObtenerFamilias(nombreClase);
-
-            foreach (var familia in familias)
-            {
-                cbFamilia.Items.Add(familia.NumeroFamilia);
-            }
-        }
-
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             int sku = Convert.ToInt32(tbSku.Text);
@@ -279,7 +213,86 @@ namespace PruebaTecnica.PresentationLayer
                 MessageBox.Show("Hubo un error durante la eliminación del articulo", "Error al eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        #endregion
 
+
+
+
+        #region Metodos
+        private string ObtenerNombreClase(int numeroClase, int numeroDepartamento)
+        {
+            List<Clase> clases = new List<Clase>();
+            clases = _business.ObtenerClases(numeroDepartamento);
+            string nombreClase = "";
+            foreach (Clase clase in clases)
+            {
+                if (clase.NumeroClase == numeroClase)
+                {
+                    nombreClase = clase.NombreClase;
+                }
+            }
+            cbFamilia.Enabled = true;
+            return nombreClase;
+        }
+
+        private void CargarDepartamentos()
+        {
+            cbDepartamento.Items.Clear();
+
+            var departamentos = _business.ObtenerDepartamentos();
+
+            foreach (var departamento in departamentos)
+            {
+                cbDepartamento.Items.Add(departamento.NumeroDepartamento);
+            }
+        }
+
+        private void CargarClases(int numeroDepartamento)
+        {
+            cbClase.Items.Clear();
+
+            var clases = _business.ObtenerClases(numeroDepartamento);
+
+            foreach (var clase in clases)
+            {
+                cbClase.Items.Add(clase.NumeroClase);
+            }
+        }
+
+        private void CargarFamilias(string nombreClase)
+        {
+            cbFamilia.Items.Clear();
+
+            var familias = _business.ObtenerFamilias(nombreClase);
+
+            foreach (var familia in familias)
+            {
+                cbFamilia.Items.Add(familia.NumeroFamilia);
+            }
+        }
+
+        private void cbDepartamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int numeroDepartamento = Convert.ToInt32(cbDepartamento.SelectedItem);
+
+            // Cargar las clases basadas en el departamento seleccionado
+            CargarClases(numeroDepartamento);
+            cbClase.Enabled = true;
+        }
+
+        private void cbClase_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int numeroDepartamento = Convert.ToInt32(cbDepartamento.SelectedItem);
+            int numeroClase = Convert.ToInt32(cbClase.SelectedItem);
+
+            CargarFamilias(ObtenerNombreClase(numeroClase, numeroDepartamento));
+        }
+        #endregion
+
+
+
+
+        #region Restricciones de Entrada
         private void tbSku_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Verificar si la tecla presionada es un dígito o la tecla de retroceso
@@ -309,5 +322,10 @@ namespace PruebaTecnica.PresentationLayer
                 e.Handled = true;
             }
         }
+        #endregion
+
+
+
+
     }
 }
