@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using PruebaTecnica.Models;
 
 namespace PruebaTecnica.DataAccesLayer
 {
@@ -111,6 +112,24 @@ namespace PruebaTecnica.DataAccesLayer
         public List<Familia> ObtenerFamilias(string nombreClase)
         {
             return _pruebaTecnicaContext.Familias.Where(x => x.NombreClase == nombreClase).ToList();
+        }
+
+        public Departamento ObtenerDepartamento(int numeroDepartamento)
+        {
+            var departamento = _pruebaTecnicaContext.Departamentos.Find(numeroDepartamento);
+            return departamento;
+        }
+
+        public Clase ObtenerClase(int numeroDepartamento, int numeroClase)
+        {
+            var clase = _pruebaTecnicaContext.Clases.FirstOrDefault(x => x.NumeroClase == numeroClase && x.NumeroDepartamento == numeroDepartamento);
+            return clase;
+        }
+
+        public Familia ObtenerFamilia(int numeroFamilia, string nombreClase)
+        {
+            var familia = _pruebaTecnicaContext.Familias.FirstOrDefault(x => x.NumeroFamilia == numeroFamilia && x.NombreClase == nombreClase);
+            return familia;
         }
 
     }

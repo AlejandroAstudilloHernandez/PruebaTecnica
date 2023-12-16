@@ -52,5 +52,20 @@ namespace PruebaTecnica.BussinessLayer
             return _data.ObtenerFamilias(nombreClase);
         }
 
+        public Departamento ObtenerDepartamento(int numeroDepartamento)
+        {
+            return _data.ObtenerDepartamento(numeroDepartamento);
+        }
+
+        public Clase ObtenerClase(int numeroDepartamento, int numeroClase)
+        {
+            return _data.ObtenerClase(numeroDepartamento, numeroClase);
+        }
+
+        public Familia ObtenerFamilia(int numeroFamilia, string nombreClase)
+        {
+            return _data.ObtenerFamilia(numeroFamilia, nombreClase);
+        }
+
     }
 }

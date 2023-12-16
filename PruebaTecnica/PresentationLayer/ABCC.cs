@@ -34,7 +34,7 @@ namespace PruebaTecnica.PresentationLayer
             dtpFechaAlta.Enabled = false;
             dtpFechaBaja.Enabled = false;
             dtpFechaAlta.Text = string.Empty;
-            dtpFechaBaja.Text = string.Empty;
+            dtpFechaBaja.Text = string.Empty;    
             CargarDepartamentos();
         }
 
@@ -43,7 +43,7 @@ namespace PruebaTecnica.PresentationLayer
         #region Botones
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (tbSku.Text != null)
+            if (tbSku.Text != null && tbSku.Text != "")
             {
                 var sku = Convert.ToInt32(tbSku.Text);
                 Articulo articulo = new Articulo();
@@ -53,9 +53,12 @@ namespace PruebaTecnica.PresentationLayer
                     tbArticulo.Text = articulo.Articulo1;
                     tbMarca.Text = articulo.Marca;
                     tbModelo.Text = articulo.Modelo;
-                    cbDepartamento.Text = articulo.Departamento.ToString();
-                    cbClase.Text = articulo.Clase.ToString();
-                    cbFamilia.Text = articulo.Familia.ToString();
+                    Departamento departamento = _business.ObtenerDepartamento(Convert.ToInt32(articulo.Departamento));
+                    cbDepartamento.Text = articulo.Departamento.ToString()+ " - " + departamento.NombreDepartamento;
+                    Clase clase = _business.ObtenerClase(Convert.ToInt32(departamento.NumeroDepartamento), Convert.ToInt32(articulo.Clase));
+                    cbClase.Text = articulo.Clase.ToString() + " - " + clase.NombreClase;
+                    Familia familia = _business.ObtenerFamilia(Convert.ToInt32(articulo.Familia), clase.NombreClase);
+                    cbFamilia.Text = articulo.Familia.ToString() + " - " + familia.NombreFamilia;
                     tbStock.Text = articulo.Stock.ToString();
                     tbCantidad.Text = articulo.Cantidad.ToString();
                     dtpFechaAlta.Text = articulo.FechaAlta.ToString();
@@ -78,7 +81,7 @@ namespace PruebaTecnica.PresentationLayer
                     btnAlta.Enabled = false;
                 }
                 else
-                {
+                {                    
                     cbDepartamento.Enabled = true;
                     cbClase.Enabled = false;
                     cbFamilia.Enabled = false;
@@ -152,9 +155,12 @@ namespace PruebaTecnica.PresentationLayer
             string articulo1 = tbArticulo.Text;
             string marca = tbMarca.Text;
             string modelo = tbModelo.Text;
-            int departamento = Convert.ToInt32(cbDepartamento.Text);
-            int clase = Convert.ToInt32(cbClase.Text);
-            int familia = Convert.ToInt32(cbFamilia.Text);
+            string datoDepartamento = cbDepartamento.SelectedItem.ToString();
+            int departamento = Convert.ToInt32(datoDepartamento.Substring(0, 1));
+            string datoClase = cbClase.SelectedItem.ToString();
+            int clase = Convert.ToInt32(datoClase.Substring(0,1));
+            string datoFamilia = cbFamilia.SelectedItem.ToString();
+            int familia = Convert.ToInt32(datoFamilia.Substring(0,1));
             int stock = Convert.ToInt32(tbStock.Text);
             int cantidad = Convert.ToInt32(tbCantidad.Text);
             bool descontinuado = cbDescontinuado.Checked;
@@ -257,7 +263,7 @@ namespace PruebaTecnica.PresentationLayer
 
             foreach (var departamento in departamentos)
             {
-                cbDepartamento.Items.Add(departamento.NumeroDepartamento);
+                cbDepartamento.Items.Add(departamento.NumeroDepartamento+" - "+ departamento.NombreDepartamento);
             }
         }
 
@@ -269,7 +275,7 @@ namespace PruebaTecnica.PresentationLayer
 
             foreach (var clase in clases)
             {
-                cbClase.Items.Add(clase.NumeroClase);
+                cbClase.Items.Add(clase.NumeroClase+" - "+clase.NombreClase);
             }
         }
 
@@ -281,13 +287,14 @@ namespace PruebaTecnica.PresentationLayer
 
             foreach (var familia in familias)
             {
-                cbFamilia.Items.Add(familia.NumeroFamilia);
+                cbFamilia.Items.Add(familia.NumeroFamilia+" - "+ familia.NombreFamilia);
             }
         }
 
         private void cbDepartamento_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int numeroDepartamento = Convert.ToInt32(cbDepartamento.SelectedItem);
+            string datoDepartamento = cbDepartamento.SelectedItem.ToString();
+            int numeroDepartamento = Convert.ToInt32(datoDepartamento.Substring(0, 1));
 
             // Cargar las clases basadas en el departamento seleccionado
             CargarClases(numeroDepartamento);
@@ -296,8 +303,10 @@ namespace PruebaTecnica.PresentationLayer
 
         private void cbClase_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int numeroDepartamento = Convert.ToInt32(cbDepartamento.SelectedItem);
-            int numeroClase = Convert.ToInt32(cbClase.SelectedItem);
+            string datoDepartamento = cbDepartamento.SelectedItem.ToString();
+            int numeroDepartamento = Convert.ToInt32(datoDepartamento.Substring(0, 1));
+            string datoClase = cbClase.SelectedItem.ToString();
+            int numeroClase = Convert.ToInt32(datoClase.Substring(0, 1));
 
             CargarFamilias(ObtenerNombreClase(numeroClase, numeroDepartamento));
         }
