@@ -81,7 +81,8 @@ namespace PruebaTecnica.PresentationLayer
                     btnAlta.Enabled = false;
                 }
                 else
-                {                    
+                {
+                    CargarDepartamentos();
                     cbDepartamento.Enabled = true;
                     cbClase.Enabled = false;
                     cbFamilia.Enabled = false;
@@ -123,13 +124,22 @@ namespace PruebaTecnica.PresentationLayer
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
+            if (!ValidarDatos())
+            {
+                MessageBox.Show("Por favor, completa todos los campos obligatorios correctamente.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Salir del método si los datos no son válidos
+            }
+
             int sku = Convert.ToInt32(tbSku.Text);
             string articulo1 = tbArticulo.Text;
             string marca = tbMarca.Text;
             string modelo = tbModelo.Text;
-            int departamento = Convert.ToInt32(cbDepartamento.Text);
-            int clase = Convert.ToInt32(cbClase.Text);
-            int familia = Convert.ToInt32(cbFamilia.Text);
+            string datoDepartamento = cbDepartamento.SelectedItem.ToString();
+            int departamento = Convert.ToInt32(datoDepartamento.Substring(0, 1));
+            string datoClase = cbClase.SelectedItem.ToString();
+            int clase = Convert.ToInt32(datoClase.Substring(0, 1));
+            string datoFamilia = cbFamilia.SelectedItem.ToString();
+            int familia = Convert.ToInt32(datoFamilia.Substring(0, 1));
             int stock = Convert.ToInt32(tbStock.Text);
             int cantidad = Convert.ToInt32(tbCantidad.Text);
 
@@ -151,6 +161,11 @@ namespace PruebaTecnica.PresentationLayer
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
+            if (!ValidarDatos())
+            {
+                MessageBox.Show("Por favor, completa todos los campos obligatorios correctamente.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Salir del método si los datos no son válidos
+            }
             int sku = Convert.ToInt32(tbSku.Text);
             string articulo1 = tbArticulo.Text;
             string marca = tbMarca.Text;
@@ -239,6 +254,20 @@ namespace PruebaTecnica.PresentationLayer
 
 
         #region Metodos
+
+        private bool ValidarDatos()
+        {
+            return !string.IsNullOrEmpty(tbSku.Text) &&
+                   !string.IsNullOrEmpty(tbArticulo.Text) &&
+                   !string.IsNullOrEmpty(tbMarca.Text) &&
+                   !string.IsNullOrEmpty(tbModelo.Text) &&
+                   cbDepartamento.SelectedItem != null &&
+                   cbClase.SelectedItem != null &&
+                   cbFamilia.SelectedItem != null &&
+                   !string.IsNullOrEmpty(tbStock.Text) &&
+                   !string.IsNullOrEmpty(tbCantidad.Text);
+        }
+
         private string ObtenerNombreClase(int numeroClase, int numeroDepartamento)
         {
             List<Clase> clases = new List<Clase>();
