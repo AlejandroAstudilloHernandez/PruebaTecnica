@@ -126,8 +126,14 @@ namespace PruebaTecnica.PresentationLayer
         {
             if (!ValidarDatos())
             {
-                MessageBox.Show("Por favor, completa todos los campos obligatorios correctamente.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Salir del método si los datos no son válidos
+                MessageBox.Show("Por favor, completa todos los campos correctamente.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!ValidarCantidad())
+            {
+                MessageBox.Show("Cantidad no puede ser mayor a Stock.", "Campos erroneos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             int sku = Convert.ToInt32(tbSku.Text);
@@ -163,8 +169,14 @@ namespace PruebaTecnica.PresentationLayer
         {
             if (!ValidarDatos())
             {
-                MessageBox.Show("Por favor, completa todos los campos obligatorios correctamente.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Salir del método si los datos no son válidos
+                MessageBox.Show("Por favor, completa todos los campos correctamente.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!ValidarCantidad())
+            {
+                MessageBox.Show("Cantidad no puede ser mayor a Stock", "Campos erroneos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             int sku = Convert.ToInt32(tbSku.Text);
             string articulo1 = tbArticulo.Text;
@@ -266,6 +278,13 @@ namespace PruebaTecnica.PresentationLayer
                    cbFamilia.SelectedItem != null &&
                    !string.IsNullOrEmpty(tbStock.Text) &&
                    !string.IsNullOrEmpty(tbCantidad.Text);
+        }
+
+        private bool ValidarCantidad()
+        {
+            return Convert.ToInt32(tbStock.Text) >= Convert.ToInt32(tbCantidad.Text) && 
+                Convert.ToInt32(tbStock.Text) >= 0 
+                && Convert.ToInt32(tbCantidad.Text) >= 0;
         }
 
         private string ObtenerNombreClase(int numeroClase, int numeroDepartamento)
