@@ -98,38 +98,51 @@ namespace PruebaTecnica.DataAccesLayer
         }
 
 
-
         public List<Departamento> ObtenerDepartamentos()
         {
-            return _pruebaTecnicaContext.Departamentos.ToList();
+            return _pruebaTecnicaContext.Departamentos.FromSqlRaw("EXEC ObtenerDepartamentos").AsNoTracking().AsEnumerable().ToList();
         }
 
         public List<Clase> ObtenerClases(int numeroDepartamento)
         {
-            return _pruebaTecnicaContext.Clases.Where(x => x.NumeroDepartamento == numeroDepartamento).ToList();
+            var parametro = new SqlParameter("@NumeroDepartamento", SqlDbType.Int) { Value = numeroDepartamento };
+
+            return _pruebaTecnicaContext.Clases.FromSqlRaw("EXEC ObtenerClases @NumeroDepartamento", parametro).AsNoTracking().AsEnumerable().ToList();
         }
+
 
         public List<Familia> ObtenerFamilias(string nombreClase)
         {
-            return _pruebaTecnicaContext.Familias.Where(x => x.NombreClase == nombreClase).ToList();
+            var parametro = new SqlParameter("@NombreClase", SqlDbType.Text) { Value = nombreClase };
+            return _pruebaTecnicaContext.Familias.FromSqlRaw("EXEC sp_ObtenerFamilias @NombreClase", parametro).AsNoTracking().AsEnumerable().ToList();
         }
+
+
 
         public Departamento ObtenerDepartamento(int numeroDepartamento)
         {
-            var departamento = _pruebaTecnicaContext.Departamentos.Find(numeroDepartamento);
-            return departamento;
+            var parametro = new SqlParameter("@NumeroDepartamento", SqlDbType.Int) { Value = numeroDepartamento };
+            return _pruebaTecnicaContext.Departamentos.FromSqlRaw("EXEC sp_ObtenerDepartamento @NumeroDepartamento", parametro).AsNoTracking().AsEnumerable().FirstOrDefault();
         }
 
         public Clase ObtenerClase(int numeroDepartamento, int numeroClase)
         {
-            var clase = _pruebaTecnicaContext.Clases.FirstOrDefault(x => x.NumeroClase == numeroClase && x.NumeroDepartamento == numeroDepartamento);
-            return clase;
+            var parametros = new[]
+            {
+                new SqlParameter("@NumeroDepartamento", SqlDbType.Int) { Value = numeroDepartamento },
+                new SqlParameter("@NumeroClase", SqlDbType.Int) { Value = numeroClase },
+            };
+            return _pruebaTecnicaContext.Clases.FromSqlRaw("EXEC sp_ObtenerClase @NumeroDepartamento, @NumeroClase", parametros).AsNoTracking().AsEnumerable().FirstOrDefault();
         }
 
         public Familia ObtenerFamilia(int numeroFamilia, string nombreClase)
         {
-            var familia = _pruebaTecnicaContext.Familias.FirstOrDefault(x => x.NumeroFamilia == numeroFamilia && x.NombreClase == nombreClase);
-            return familia;
+            var parametros = new[]
+            {
+                new SqlParameter("@NumeroFamilia", SqlDbType.Int) { Value = numeroFamilia },
+                new SqlParameter("@NombreClase", SqlDbType.Text) { Value = nombreClase },
+            };
+            return _pruebaTecnicaContext.Familias.FromSqlRaw("EXEC sp_ObtenerFamilia @NumeroFamilia, @NombreClase", parametros).AsNoTracking().AsEnumerable().FirstOrDefault();
         }
 
     }
